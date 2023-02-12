@@ -1,5 +1,8 @@
+#!/usr/bin/python3
 #Week 3 Date Assignment
 #VladK
+#Calculates the date given a origin date and number of days past
+#Version 2
 
 #import datetime, timedelta
 from datetime import datetime, timedelta

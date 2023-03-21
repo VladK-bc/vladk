@@ -7,11 +7,11 @@
 # My mouse name is Whiskers
 # My bird name is Tweety
 
-mypets = {'Mido' : 'cat', 'dog': 'Timber', 'mouse'  'Whiskers'}
+mypets = {'dog' : 'Timber', 'cat': 'Mido', 'mouse': 'Whiskers' , 'bird': 'Tweety'}
 
-for k,v in mypets.items:
-    print("My ' + k + ' name is ' + v)
-
+for k, v in mypets.items():
+    print('My ' + k + ' name is ' + v)
+   
 
 
 

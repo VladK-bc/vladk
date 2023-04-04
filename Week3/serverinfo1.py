@@ -1,42 +1,57 @@
+#!/usr/bin/python3
+#VladK serverinfo1.py
+
 import socket
 import psutil
 import platform
-import netifaces
-import json
-import csv
-import sys
+import subprocess
 
-# Get hostname
-hostname = socket.gethostname()
+def get_hostname():
+    return socket.gethostname()
 
-# Get CPU count
-cpu_count = psutil.cpu_count(logical=False)
+def get_cpu_count():
+    return psutil.cpu_count()
 
-# Get RAM quantity
-ram_bytes = psutil.virtual_memory().total
-ram_gb = round(ram_bytes / (1024 ** 3), 2)
+def get_ram_gb():
+    return round(psutil.virtual_memory().total / (1024.0 ** 3))
 
-# Get OS type and version
-os_type = platform.system()
-os_version = platform.release()
+def get_os_type():
+    return platform.system()
 
-# Get number of drives
-num_drives = len(psutil.disk_partitions())
+def get_os_version():
+    return platform.release()
 
-# Get IP and MAC address of eth0
-interfaces = netifaces.interfaces()
-for interface in interfaces:
-    if interface == 'eth0':
-        eth0_addrs = netifaces.ifaddresses(interface)
-        ip_address = eth0_addrs[netifaces.AF_INET][0]['addr']
-        mac_address = eth0_addrs[netifaces.AF_LINK][0]['addr']
+def get_disk_count():
+    physical_disks = set()
+    for partition in psutil.disk_partitions(all=True):
+        if partition.device.startswith('/dev/sd'):
+            physical_disks.add(partition.device[:8])
+    return len(physical_disks)
 
-# Print the results
-print(f"Hostname: {hostname}")
-print(f"CPU count: {cpu_count}")
-print(f"RAM quantity: {ram_gb} GB")
-print(f"OS type: {os_type}")
-print(f"OS version: {os_version}")
-print(f"Number of drives: {num_drives}")
-print(f"IP address of eth0: {ip_address}")
-print(f"MAC address of eth0: {mac_address}")
+def get_ip_mac_address():
+    ip_process = subprocess.Popen(['ip', 'addr', 'show'], stdout=subprocess.PIPE)
+    ip_output, _ = ip_process.communicate()
+
+    ip_address = None
+    mac_address = None
+
+    for line in ip_output.decode().split('\n'):
+        if 'inet ' in line and '127.0.0.1' not in line:
+            ip_address = line.strip().split(' ')[1].split('/')[0]
+        elif 'link/ether' in line:
+            mac_address = line.strip().split(' ')[1]
+
+    return (ip_address, mac_address)
+
+if __name__ == '__main__':
+    print(f"Hostname: {get_hostname()}")
+    print(f"CPU (count): {get_cpu_count()}")
+    print(f"RAM (GB): {get_ram_gb()}")
+    print(f"OSType: {get_os_type()}")
+    print(f"OSVersion: {get_os_version()}")
+    print(f"Physical Disks (Count): {get_disk_count()}")
+    ip_address, mac_address = get_ip_mac_address()
+    if ip_address is not None:
+        print(f"ip of eth0: {ip_address}")
+    if mac_address is not None:
+        print(f"mac of eth0: {mac_address}")

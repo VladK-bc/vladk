@@ -1,0 +1,16 @@
+DNS,IP,Country,RegionName,City,Zipcode,ISP
+id.nsd.org,34.233.78.36,United States,Virginia,Ashburn,20149,"Amazon.com, Inc."
+id.nsd.org,52.200.20.216,United States,Virginia,Ashburn,20149,"Amazon.com, Inc."
+ns1.nsd.org,152.157.68.27,United States,Washington,Bothell,98021,Northshore School District
+ns2.nsd.org,152.157.68.28,United States,Washington,Bothell,98021,Northshore School District
+ns3.nsd.org,20.120.161.221,United States,Washington,Quincy,98848,Microsoft Corporation
+vpn.nsd.org,152.157.64.4,United States,Washington,Bothell,98021,Northshore School District
+mail.nsd.org,152.157.69.3,United States,Washington,Bothell,98021,Northshore School District
+www.nsd.org,104.17.67.73,Canada,Ontario,Toronto,M5A,"Cloudflare, Inc."
+www.nsd.org,104.17.68.73,Canada,Ontario,Toronto,M5A,"Cloudflare, Inc."
+www.nsd.org,104.17.69.73,Canada,Ontario,Toronto,M5A,"Cloudflare, Inc."
+www.nsd.org,104.17.70.73,Canada,Ontario,Toronto,M5A,"Cloudflare, Inc."
+www.nsd.org,104.17.71.73,Canada,Ontario,Toronto,M5A,"Cloudflare, Inc."
+sip.nsd.org,52.112.66.203,United States,Iowa,Des Moines,,Microsoft Corporation
+ssh.nsd.org,152.157.64.55,United States,Washington,Bothell,98021,Northshore School District
+helpdesk.nsd.org,152.157.69.3,United States,Washington,Bothell,98021,Northshore School District

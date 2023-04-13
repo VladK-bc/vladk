@@ -8,6 +8,7 @@ import re
 import gzip
 import requests
 import csv
+import time
 
 def api(mac_address):
     url = f"https://api.macvendors.com/{mac_address}"
@@ -18,7 +19,6 @@ def api(mac_address):
         vendor_info = response.text
         return vendor_info
     except requests.exceptions.HTTPError as e:
-        print(f"Error: {e}")
         return None
 
 def matchipmacaddresses(file_path, ip_addresses):
@@ -54,11 +54,12 @@ def main():
         csvwriter.writerow(["IP", "MAC Address", "Vendor"])
 
         for ip, mac_address in ip_mac_map.items():
+            time.sleep(0.6)
             vendor_info = api(mac_address)
             if vendor_info:
                 csvwriter.writerow([ip, mac_address, vendor_info])
             else:
-                print(f"No MAC Address Found {mac_address}")
+                pass
 
 if __name__ == "__main__":
     main()

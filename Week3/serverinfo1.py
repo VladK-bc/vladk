@@ -21,12 +21,14 @@ def get_os_type():
 def get_os_version():
     return platform.release()
 
+import subprocess
+
 def get_disk_count():
-    physical_disks = set()
-    for partition in psutil.disk_partitions(all=True):
-        if partition.device.startswith('/dev/sd'):
-            physical_disks.add(partition.device[:8])
-    return len(physical_disks)
+    proc = subprocess.run("lsblk | grep disk | wc -l", shell=True, \
+    text=True, capture_output=True)
+    disk_count = int(proc.stdout.strip())
+    return disk_count
+
 
 def get_ip_mac_address():
     ip_process = subprocess.Popen(['ip', 'addr', 'show'], stdout=subprocess.PIPE)

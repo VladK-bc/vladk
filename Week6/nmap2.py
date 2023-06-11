@@ -1,39 +1,39 @@
 #!/usr/bin/python3
 #VladK nmap2
 
+##run time 3 minutes
+
+
 import csv
 import nmap3
+nmap = nmap3.Nmap()
 
-def read_ips(file):
-    with open(file, newline='') as f:
-        return [row['IP'] for row in csv.DictReader(f)]
 
-def scan_os_and_ports(ip):
-    nmap = nmap3.Nmap()
-    os_results = nmap.nmap_os_detection(ip)
-    os_family = 'Unknown'
-    if os_results and isinstance(os_results[ip]['osmatch'], list) and os_results[ip]['osmatch'][0].get('osclass'):
-        os_family = os_results[ip]['osmatch'][0]['osclass'].get('osfamily', 'Unknown')
-    else:
-        print(f"OS detection results for IP {ip}: {os_results}")
-    open_ports = nmap.scan_top_ports(ip)
-    open_ports_list = ','.join([str(port_info['portid']) for port_info in open_ports[ip]['ports']])
-    return {'IP': ip, 'OpenPorts': open_ports_list, 'OSType': os_family}
+with open('nmap1.csv', 'r') as csvfile:
+    reader = csv.reader(csvfile)
+    next(reader)  
+    data = list(reader)
 
-def write_csv(data, file):
-    with open(file, 'w', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=['IP', 'OpenPorts', 'OSType'])
-        writer.writeheader()
-        writer.writerows(data)
+with open('nmap2.csv', 'w', newline='') as csvfile:
+    fieldnames = ['IP Address', 'Open Ports', 'OS Type']
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    writer.writeheader()
 
-def main():
-    input_csv = 'nmap1.csv'
-    output_csv = 'nmap2.csv'
+    for row in data:
+        ip = row[0]
+        ports = row[1]
+        os_results = nmap.nmap_os_detection(ip, args="-O --osscan-guess") ##-O --osscan-guess
+        ##known results, Oracle VirtualBox, iPXE, Windows
 
-    ip_list = read_ips(input_csv)
-    scanned_data = [scan_os_and_ports(ip) for ip in ip_list]
+        if ip in os_results:
+            highest_accuracy = 0
+            os_type = ""
+            for os_class in os_results[ip]['osmatch']:
+                if int(os_class['accuracy']) > highest_accuracy:
+                    highest_accuracy = int(os_class['accuracy'])
+                    os_type = os_class['name']
 
-    write_csv(scanned_data, output_csv)
+            writer.writerow({'IP Address': ip, 'Open Ports': ports, 'OS Type': os_type})
+        else:
+            print(f"No result for OS Type {ip}")
 
-if __name__ == '__main__':
-    main()

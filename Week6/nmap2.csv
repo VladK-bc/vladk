@@ -1,11 +1,11 @@
 IP Address,Open Ports,OS Type
-152.157.64.107, 443,Oracle Virtualbox
-152.157.64.155, 80,Oracle Virtualbox
-152.157.64.4, 443,Oracle Virtualbox
-152.157.64.5, 22,Oracle Virtualbox
-152.157.64.88, 443,Oracle Virtualbox
-152.157.65.10, 80,Oracle Virtualbox
-152.157.65.15, 443,Oracle Virtualbox
-152.157.65.22, 443,Oracle Virtualbox
-152.157.65.23, 443,Oracle Virtualbox
-152.157.65.24, 443,Oracle Virtualbox
+152.157.64.107, 443,Microsoft Windows Server 2016
+152.157.64.155, 80,AVtech Room Alert 26W environmental monitor
+152.157.64.4, 443,Linux 4.0
+152.157.64.5, 22,Linux 4.4
+152.157.64.88, 443,Linux 3.2 - 3.8
+152.157.65.10, 80,Linux 3.2
+152.157.65.15, 443,Linux 2.6.32
+152.157.65.22, 443,Linux 2.6.32
+152.157.65.23, 443,Linux 2.6.32
+152.157.65.24, 443,Linux 2.6.32

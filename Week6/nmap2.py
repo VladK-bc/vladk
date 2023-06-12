@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 #VladK nmap2
 
-##run time 3 minutes
-
-
 import csv
 import nmap3
 nmap = nmap3.Nmap()
@@ -22,7 +19,7 @@ with open('nmap2.csv', 'w', newline='') as csvfile:
     for row in data:
         ip = row[0]
         ports = row[1]
-        os_results = nmap.nmap_os_detection(ip, args="-O --osscan-guess") ##-O --osscan-guess
+        os_results = nmap.nmap_os_detection(ip) ##-O --osscan-guess
         ##known results, Oracle VirtualBox, iPXE, Windows
 
         if ip in os_results:
@@ -36,4 +33,3 @@ with open('nmap2.csv', 'w', newline='') as csvfile:
             writer.writerow({'IP Address': ip, 'Open Ports': ports, 'OS Type': os_type})
         else:
             print(f"No result for OS Type {ip}")
-

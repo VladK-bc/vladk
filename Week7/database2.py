@@ -28,4 +28,3 @@ except Exception as e:
     print ("Error", e)
 
 db.close()
-s

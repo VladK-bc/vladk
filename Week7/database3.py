@@ -6,7 +6,7 @@ import pymysql
 import week7serverinfo
 
 ## syntax is localhost username, password, database name
-ddb = pymysql.connect(
+db = pymysql.connect(
     host='localhost',
     user='cmdb',
     password='cmdb',

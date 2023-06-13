@@ -4,14 +4,15 @@ import csv
 import json
 import pymysql
 
-## syntax is localhost username, password, database name
-db = pymysql.connect(host= 'localhost',
-                     user= 'cmdb',
-                     password= 'cmdb',
-                     database= 'cmdb')
+db = pymysql.connect(
+    host='localhost',
+    user='cmdb',
+    password='cmdb',
+    database='cmdb'
+)
 
 cursor = db.cursor()
-sql = "select * device"
+sql = "SELECT * FROM device"
 
 try:
     cursor.execute(sql)
@@ -25,6 +26,6 @@ try:
         json.dump(results, f)
 
 except Exception as e:
-    print ("Error", e)
+    print("Error", e)
 
 db.close()

@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 #VladK database3.py
 
-
+import socket
+import psutil
+import platform
+import subprocess
 import pymysql
 import week7serverinfo
 
